@@ -38,16 +38,39 @@ const siteShowcase = [
   },
 ];
 
+const gamerShowcase = [
+  {
+    src: "/imagns/gamer1.png",
+    title: "Dashboard Biblioteca Gamer - Visão geral",
+  },
+  {
+    src: "/imagns/gamer2.png",
+    title: "Dashboard Biblioteca Gamer - Catálogo",
+  },
+  {
+    src: "/imagns/gamer3.png",
+    title: "Dashboard Biblioteca Gamer - Métricas",
+  },
+];
+
 function App() {
   const [sent, setSent] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentGamerSlide, setCurrentGamerSlide] = useState(0);
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
+    const timerFunilaria = window.setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % siteShowcase.length);
     }, 4500);
 
-    return () => window.clearInterval(timer);
+    const timerGamer = window.setInterval(() => {
+      setCurrentGamerSlide((prev) => (prev + 1) % gamerShowcase.length);
+    }, 5000);
+
+    return () => {
+      window.clearInterval(timerFunilaria);
+      window.clearInterval(timerGamer);
+    };
   }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -64,6 +87,16 @@ function App() {
 
   const handleNext = () => {
     setCurrentSlide((prev) => (prev + 1) % siteShowcase.length);
+  };
+
+  const handleGamerPrevious = () => {
+    setCurrentGamerSlide((prev) =>
+      prev === 0 ? gamerShowcase.length - 1 : prev - 1,
+    );
+  };
+
+  const handleGamerNext = () => {
+    setCurrentGamerSlide((prev) => (prev + 1) % gamerShowcase.length);
   };
 
   return (
@@ -222,6 +255,75 @@ function App() {
                   aria-label={`Ir para slide ${index + 1}`}
                   className={`h-2.5 rounded-full transition-all ${
                     currentSlide === index
+                      ? "w-7 bg-emerald-300"
+                      : "w-2.5 bg-white/60 hover:bg-white/90"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-white md:text-3xl">
+            Amostra real: dashboard de biblioteca gamer
+          </h2>
+          <p className="text-sm text-slate-200">
+            Interface de dashboard para gestão e visualização da biblioteca de
+            jogos.
+          </p>
+
+          <div className="relative overflow-hidden rounded-3xl bg-white/10 shadow-[0_20px_50px_rgba(15,23,42,0.45)] backdrop-blur-sm">
+            <div className="relative h-[260px] w-full sm:h-[360px] md:h-[480px]">
+              {gamerShowcase.map((item, index) => (
+                <figure
+                  key={item.src}
+                  className={`absolute inset-0 transition-all duration-700 ${
+                    currentGamerSlide === index
+                      ? "scale-100 opacity-100"
+                      : "scale-105 opacity-0"
+                  }`}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    className="h-full w-full object-cover object-top"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/90 to-transparent p-4 sm:p-6">
+                    <p className="text-sm font-medium text-white sm:text-base">
+                      {item.title}
+                    </p>
+                  </div>
+                </figure>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleGamerPrevious}
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-slate-900/70 p-2 text-white backdrop-blur transition hover:bg-slate-800/90"
+              aria-label="Slide anterior do dashboard gamer"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={handleGamerNext}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-slate-900/70 p-2 text-white backdrop-blur transition hover:bg-slate-800/90"
+              aria-label="Próximo slide do dashboard gamer"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+
+            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2">
+              {gamerShowcase.map((item, index) => (
+                <button
+                  key={item.src}
+                  type="button"
+                  onClick={() => setCurrentGamerSlide(index)}
+                  aria-label={`Ir para slide gamer ${index + 1}`}
+                  className={`h-2.5 rounded-full transition-all ${
+                    currentGamerSlide === index
                       ? "w-7 bg-emerald-300"
                       : "w-2.5 bg-white/60 hover:bg-white/90"
                   }`}
