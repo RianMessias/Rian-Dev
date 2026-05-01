@@ -464,7 +464,7 @@ function App() {
               contato@rianmessias.dev
             </a>
             <a
-              href="https://wa.me/55119670564125"
+              href="https://wa.me/5511967064125"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-emerald-500/20 px-3 py-2 text-emerald-100 shadow-[0_8px_24px_rgba(16,185,129,0.35)] hover:bg-emerald-500/30"
@@ -484,7 +484,7 @@ function App() {
       </main>
 
       <a
-        href="https://wa.me/55119670564125"
+        href="https://wa.me/5511967064125"
         target="_blank"
         rel="noreferrer"
         aria-label="Falar no WhatsApp"
