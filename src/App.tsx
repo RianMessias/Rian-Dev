@@ -1,5 +1,3 @@
-import { useState } from "react";
-import type { FormEvent } from "react";
 import {
   Briefcase,
   Code2,
@@ -8,12 +6,12 @@ import {
   Layers3,
   Mail,
   MessageCircle,
-  Send,
 } from "lucide-react";
 import { SmokeBackground } from "@/components/ui/spooky-smoke-animation";
 import { ProjectCarousel } from "@/components/ui/project-carousel";
 import { ProjectCard } from "@/components/ui/project-card";
 import { carouselProjects, cardProjects } from "@/data/projects";
+import { BudgetForm } from "@/components/budget-form";
 
 const stacks = [
   { name: "C# .NET", icon: Code2 },
@@ -24,14 +22,6 @@ const stacks = [
 ];
 
 function App() {
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSent(true);
-    event.currentTarget.reset();
-  };
-
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <div className="fixed inset-0 -z-20">
@@ -170,53 +160,7 @@ function App() {
           <h2 className="text-2xl font-semibold text-white md:text-3xl">
             Formulário de contato
           </h2>
-          <form
-            onSubmit={handleSubmit}
-            className="grid gap-3 rounded-2xl bg-white/12 p-5 shadow-form md:grid-cols-2"
-          >
-            <label className="space-y-1 md:col-span-1">
-              <span className="text-sm text-slate-200">Nome</span>
-              <input
-                type="text"
-                required
-                placeholder="Seu nome"
-                className="w-full rounded-lg bg-slate-950/70 px-3 py-2 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-300"
-              />
-            </label>
-            <label className="space-y-1 md:col-span-1">
-              <span className="text-sm text-slate-200">E-mail</span>
-              <input
-                type="email"
-                required
-                placeholder="seuemail@dominio.com"
-                className="w-full rounded-lg bg-slate-950/70 px-3 py-2 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-300"
-              />
-            </label>
-            <label className="space-y-1 md:col-span-2">
-              <span className="text-sm text-slate-200">Mensagem</span>
-              <textarea
-                required
-                rows={5}
-                placeholder="Descreva seu projeto."
-                className="w-full rounded-lg bg-slate-950/70 px-3 py-2 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-300"
-              />
-            </label>
-            <div className="flex flex-wrap items-center gap-3 md:col-span-2">
-              <button
-                type="submit"
-                className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-slate-900 transition hover:bg-slate-200"
-              >
-                <Send className="h-4 w-4" />
-                Enviar mensagem
-              </button>
-              {sent ? (
-                <p className="text-sm text-emerald-300">
-                  Mensagem enviada no frontend. Podemos integrar com backend em
-                  seguida.
-                </p>
-              ) : null}
-            </div>
-          </form>
+          <BudgetForm />
 
           <div className="flex flex-wrap items-center gap-3 text-sm text-slate-200">
             <a
