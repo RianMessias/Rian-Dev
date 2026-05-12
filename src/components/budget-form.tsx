@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { FormEvent } from "react"
 import {
   ArrowLeft,
@@ -127,6 +127,13 @@ const steps = [
   { label: "Enviar", icon: Send },
 ]
 
+const DRAFT_STORAGE_KEY = "budget-form-draft-v1"
+
+type DraftData = {
+  step: number
+  form: FormData
+}
+
 function StepIndicator({ current }: { current: number }) {
   return (
     <div className="flex items-center justify-center gap-1.5 sm:gap-2">
@@ -210,10 +217,37 @@ function TextareaField({
 }
 
 export function BudgetForm() {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(() => {
+    const savedDraft = window.localStorage.getItem(DRAFT_STORAGE_KEY)
+    if (!savedDraft) return 0
+
+    try {
+      const parsed = JSON.parse(savedDraft) as DraftData
+      return typeof parsed?.step === "number"
+        ? Math.max(0, Math.min(3, parsed.step))
+        : 0
+    } catch {
+      return 0
+    }
+  })
   const [sent, setSent] = useState(false)
   const [expandedFeatures, setExpandedFeatures] = useState(false)
-  const [form, setForm] = useState<FormData>(initialForm)
+  const [form, setForm] = useState<FormData>(() => {
+    const savedDraft = window.localStorage.getItem(DRAFT_STORAGE_KEY)
+    if (!savedDraft) return initialForm
+
+    try {
+      const parsed = JSON.parse(savedDraft) as DraftData
+      return parsed?.form ?? initialForm
+    } catch {
+      return initialForm
+    }
+  })
+
+  useEffect(() => {
+    const draft: DraftData = { step, form }
+    window.localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(draft))
+  }, [form, step])
 
   const update = <K extends keyof FormData>(
     key: K,
@@ -249,6 +283,7 @@ export function BudgetForm() {
     setSent(true)
     setStep(0)
     setForm(initialForm)
+    window.localStorage.removeItem(DRAFT_STORAGE_KEY)
     setTimeout(() => setSent(false), 6000)
   }
 
