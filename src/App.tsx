@@ -173,18 +173,20 @@ function App() {
               GitHub
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/rian-messias-9b007b340/"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 shadow-[0_8px_24px_rgba(15,23,42,0.25)] hover:bg-white/15"
             >
               <Briefcase className="h-4 w-4" />
               LinkedIn
             </a>
             <a
-              href="mailto:contato@rianmessias.dev"
+              href="mailto:rianmessiasofc@gmail.com"
               className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 shadow-[0_8px_24px_rgba(15,23,42,0.25)] hover:bg-white/15"
             >
               <Mail className="h-4 w-4" />
-              contato@rianmessias.dev
+              rianmessiasofc@gmail.com
             </a>
             <a
               href="https://wa.me/5511967064125"

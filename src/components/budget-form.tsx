@@ -643,11 +643,11 @@ export function BudgetForm() {
               Falar no WhatsApp
             </a>
             <a
-              href="mailto:contato@rianmessias.dev"
+              href="mailto:rianmessiasofc@gmail.com"
               className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-white/15"
             >
               <Mail className="h-3.5 w-3.5" />
-              contato@rianmessias.dev
+              rianmessiasofc@gmail.com
             </a>
           </div>
         </div>
